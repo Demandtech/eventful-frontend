@@ -48,7 +48,7 @@ export default function Modal() {
               Sign up with Google
             </Button>
           </DialogDescription>
-          <form className="space-y-4 overflow-y-auto">
+          <form className="space-y-4">
             <div>
               <Label className="mb-2 block " htmlFor="first_name">
                 First name

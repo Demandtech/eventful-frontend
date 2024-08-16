@@ -37,7 +37,7 @@ function Categories() {
         Browse By Category
       </h2>
 
-      <Carousel className="flex h-[370px] justify-center w-full ">
+      <Carousel className="flex h-[280px] lg:h-[370px] justify-center w-full ">
         <CarouselContent className="w-full">
           {categories.map((category, index) => {
             return (
@@ -51,10 +51,10 @@ function Categories() {
           })}
         </CarouselContent>
 
-        <div className={`hidden lg:${categories.length > 4 ? "block" : "hidden"}`}> 
+        <div>
           <CarouselNext />
           <CarouselPrevious />
-       </div>
+        </div>
       </Carousel>
     </div>
   );

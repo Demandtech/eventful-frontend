@@ -5,6 +5,7 @@ import Image from "next/image";
 import banner from "../../public/assets/images/banner.png";
 import Link from "next/link";
 import Categories from "@/components/home/categories";
+import Events from "@/components/home/events";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         </div>
       </div>
       <Categories />
+      <Events />
     </PagesLayout>
   );
 }

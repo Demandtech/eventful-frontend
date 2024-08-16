@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "./navbar";
+import Footer from "./Footer";
 
 function PagesLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,6 +10,7 @@ function PagesLayout({ children }: { children: ReactNode }) {
       <div className="max-w-[1440px] py-5 mx-auto px-3 md:px-5 lg:px-20">
         {children}
       </div>
+      <Footer />
     </div>
   );
 }

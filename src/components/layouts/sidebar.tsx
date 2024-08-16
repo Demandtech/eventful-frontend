@@ -16,7 +16,7 @@ function Sidebar() {
       </SheetTrigger>
       <SheetContent className="bg-btn-secondary" side="left">
         <SheetHeader className="text-start mb-10">
-          <SheetTitle className="nline uppercase font-bold text-lg tracking-wide first-letter:text-btn-primary text-white">
+          <SheetTitle className="inline uppercase font-bold text-lg tracking-wide first-letter:text-btn-primary text-white">
             <Link href="/">Eventful</Link>
           </SheetTitle>
         </SheetHeader>

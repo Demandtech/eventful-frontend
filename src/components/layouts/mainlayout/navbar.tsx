@@ -9,15 +9,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui";
 function Navbar() {
   const [user, setUser] = useState(true);
   return (
-    <nav className=" max-w-[1440px] mx-auto bg-[#04092c] text-white pb-5 px-3 md:px-5 lg:px-20">
-      <div className="flex items-center sticky bg-[#04092c] top-0 z-20 py-5 justify-between">
+    <nav className=" max-w-[1440px] mx-auto sticky z-20 top-0 bg-[#04092c] text-white pb-5 px-3 md:px-5 lg:px-20">
+      <div className="flex items-center sticky bg-[#04092c] top-0  py-5 justify-between">
         <div className="flex gap-3 items-center">
           {/* ÷ <Button className="px-0 lg:hidden" variant={"default"}> */}
           <Sidebar />
 
           {/* </Button> */}
           <Link href="/">
-            <p className="inline uppercase font-bold text-lg tracking-wide first-letter:text-btn-primary">
+            <p className="uppercase font-bold text-lg tracking-wide first-letter:text-btn-primary">
               Eventful
             </p>
           </Link>
