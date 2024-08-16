@@ -7,7 +7,7 @@ import Sidebar from "../sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui";
 
 function Navbar() {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   return (
     <nav className=" max-w-[1440px] mx-auto bg-[#04092c] text-white pb-5 px-3 md:px-5 lg:px-20">
       <div className="flex items-center sticky bg-[#04092c] top-0 z-20 py-5 justify-between">
