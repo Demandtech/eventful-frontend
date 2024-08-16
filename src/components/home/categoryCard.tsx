@@ -6,7 +6,7 @@ function CategoryCard({ img, name }: { img: string; name: string }) {
     <Card className="w-full">
       <CardContent className="p-0  h-[250px] lg:h-[340px] w-full">
         <div className=" relative  overflow-hidden h-full rounded-2xl ">
-          <Image className=" object-cover" alt="Concert photo" fill src={img} />
+          <Image sizes="" className=" object-cover" alt="Concert photo" fill src={img} />
         </div>
         <div className=" w-4/5 -translate-y-5 mx-auto ">
           <Button

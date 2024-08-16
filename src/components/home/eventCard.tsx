@@ -28,7 +28,13 @@ function EventCard({
           <time>{date}</time>
         </div>
         <div className="min-w-28 w-full rounded-2xl overflow-hidden lg:w-auto h-28 relative">
-          <Image className="object-cover object-center" alt="" src={img} fill />
+          <Image
+            sizes="(max-with:300px)"
+            className="object-cover object-center"
+            alt=""
+            src={img}
+            fill
+          />
         </div>
         <div>
           <div className="text-sm hidden lg:block font-semibold text-black/70">
