@@ -16,22 +16,22 @@ function Sidebar() {
       </SheetTrigger>
       <SheetContent className="bg-btn-secondary" side="left">
         <SheetHeader className="text-start mb-10">
-          <SheetTitle className="inline uppercase font-bold text-lg tracking-wide first-letter:text-btn-primary text-white">
+          <SheetTitle className="inline capitalize font-bold text-lg tracking-wide first-letter:text-btn-primary text-white">
             <Link href="/">Eventful</Link>
           </SheetTitle>
         </SheetHeader>
         <ul className="text-white space-y-5 items-center gap-5">
           <li>
-            <Link href="/trending">Trending</Link>
+            <Link href="/categories/Family">Family</Link>
           </li>
           <li>
-            <Link href="/sport">Sport</Link>
+            <Link href="/categories/Sport">Sport</Link>
           </li>
           <li>
-            <Link href="/concert">Concert</Link>
+            <Link href="/categories/Concert">Concert</Link>
           </li>
           <li>
-            <Link href="theater">Theater</Link>
+            <Link href="/categories/Theater">Theater</Link>
           </li>
         </ul>
       </SheetContent>

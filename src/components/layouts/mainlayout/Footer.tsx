@@ -9,6 +9,7 @@ import {
   CalendarIcon,
   TimerIcon,
 } from "@radix-ui/react-icons";
+import { Phone, LocateFixed } from "lucide-react";
 
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ function Footer() {
       <div className="py-10 px-3 gap-10 md:px-5 lg:px-20 flex flex-col lg:flex-row lg:items-center">
         <div className="flex-1">
           <Link href="/">
-            <p className="uppercase font-bold text-4xl tracking-wide first-letter:text-btn-primary">
+            <p className="capitalize font-bold text-4xl tracking-wide first-letter:text-btn-primary">
               Eventful
             </p>
           </Link>
@@ -79,10 +80,11 @@ function Footer() {
                 <EnvelopeClosedIcon className="text-white/70" />
                 <span>Email</span>
               </div>
-              <p>sparessupport@metaticket.in</p>
+              <p>sparessupport@eventfulticket.in</p>
             </li>
             <li className="font-extralight text-xs lg:text-sm  flex justify-between">
-              <div>
+              <div className="inline-flex items-center gap-2">
+                <Phone size={15} className="text-white/70 text-sm" />
                 <span>Phone Number</span>
               </div>
               <p>(+234) 08145188560</p>
@@ -101,8 +103,9 @@ function Footer() {
               </div>
               <p>8:00AM - 8:00PM (WAT)</p>
             </li>
-            <li className=" font-extralight text-xs lg:text-sm flex justify-between">
-              <div>
+            <li className=" font-extralight text-xs lg:text-sm flex items-baseline justify-between">
+              <div className="inline-flex items-center gap-2">
+                <LocateFixed size={15} className="text-white/70" />
                 <span>Address</span>
               </div>
               <p className="max-w-[50%] text-end">

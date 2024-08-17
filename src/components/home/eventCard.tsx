@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../ui";
 import Image from "next/image";
-import { LocateIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function EventCard({
   name,
@@ -20,6 +20,8 @@ function EventCard({
   _id: string;
   venue: string;
 }) {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col lg:flex-row lg:items-center gap-5">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-10 lg:max-w-[50%]">
@@ -47,6 +49,7 @@ function EventCard({
       </div>
       <div className="lg:ml-auto space-y-2">
         <Button
+          onClick={() => router.push(`/details/${_id}`)}
           variant="outline"
           size="md"
           className="block w-full border-btn-primary text-btn-primary text-xs lg:text-sm"

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { Button, CardContent, Card } from "../ui";
+import { useRouter } from "next/navigation";
 
 function CategoryCard({ img, name }: { img: string; name: string }) {
+  const router = useRouter();
   return (
     <Card className="w-full">
       <CardContent className="p-0  h-[250px] lg:h-[340px] w-full">
@@ -12,6 +14,7 @@ function CategoryCard({ img, name }: { img: string; name: string }) {
           <Button
             variant="secondary"
             className="w-full border-4 border-white  font-semibold "
+            onClick={() => router.push(`/categories/${name}`)}
           >
             {name}
           </Button>

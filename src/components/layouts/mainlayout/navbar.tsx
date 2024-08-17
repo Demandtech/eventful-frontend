@@ -5,19 +5,21 @@ import React, { useState } from "react";
 import Searchbar from "../searchbar";
 import Sidebar from "../sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui";
+import { usePathname, useRouter } from "next/navigation";
 
 function Navbar() {
   const [user, setUser] = useState(true);
+  const path = usePathname();
+
+
   return (
-    <nav className=" max-w-[1440px] mx-auto sticky z-20 top-0 bg-[#04092c] text-white pb-5 px-3 md:px-5 lg:px-20">
+    <nav className=" max-w-[1440px] mx-auto sticky z-20 top-0 bg-[#04092c] text-white px-3 md:px-5 lg:px-20">
       <div className="flex items-center sticky bg-[#04092c] top-0  py-5 justify-between">
         <div className="flex gap-3 items-center">
-          {/* ÷ <Button className="px-0 lg:hidden" variant={"default"}> */}
           <Sidebar />
 
-          {/* </Button> */}
           <Link href="/">
-            <p className="uppercase font-bold text-lg tracking-wide first-letter:text-btn-primary">
+            <p className="font-bold text-lg lg:text-4xl capitalize tracking-wide first-letter:text-btn-primary">
               Eventful
             </p>
           </Link>
@@ -25,29 +27,29 @@ function Navbar() {
         <div className="flex gap-10">
           <ul className=" items-center gap-5 hidden lg:flex">
             <li>
-              <Link href="/trending">Trending</Link>
+              <Link href="/categories/Family">Trending</Link>
             </li>
             <li>
-              <Link href="/sport">Sport</Link>
+              <Link href="/categories/Sports">Sport</Link>
             </li>
             <li>
-              <Link href="/concert">Concert</Link>
+              <Link href="/categories/Concert">Concert</Link>
             </li>
             <li>
-              <Link href="theater">Theater</Link>
+              <Link href="/categories/Theater">Theater</Link>
             </li>
           </ul>
 
           <div className="gap-5 flex items-center">
-            {user ? (
+            {!user ? (
               <>
                 <Signup />
                 <Login />
               </>
             ) : (
-              <div className="flex gap-3 items-center">
+              <Link href="/profile/iujeujdu" className="flex gap-3 items-center">
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.pn" />
+                  <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>RA</AvatarFallback>
                 </Avatar>
                 <div>
@@ -56,12 +58,16 @@ function Navbar() {
                     @Demand
                   </span>
                 </div>
-              </div>
+              </Link>
             )}
           </div>
         </div>
       </div>
-      <Searchbar />
+      {!path.includes("detail") && (
+        <div className="pb-10">
+          <Searchbar />
+        </div>
+      )}
     </nav>
   );
 }
