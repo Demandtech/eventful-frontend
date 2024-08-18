@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "../ui";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ticketTypes } from "@/app/details/[eventId]/page";
+import BookButton from "../reusables/BookButton";
 
 function EventCard({
   name,
@@ -47,18 +49,20 @@ function EventCard({
           <p className="font-bold">{venue}</p>
         </div>
       </div>
-      <div className="lg:ml-auto space-y-2">
+      <div className="lg:ml-auto gap-3 space-y-2  flex lg:block
+      ">
         <Button
           onClick={() => router.push(`/details/${_id}`)}
           variant="outline"
           size="md"
-          className="block w-full border-btn-primary text-btn-primary text-xs lg:text-sm"
+          className="block w-full mt-2 lg:mt-0 border-btn-primary text-btn-primary text-xs lg:text-sm"
         >
           View Details
         </Button>
-        <Button size="md" className="block w-full px-5 text-xs lg:text-sm">
+        {/* <Button size="md" className="block w-full px-5 text-xs lg:text-sm">
           Book Now (₦<span className="font-bold">{price}</span>)
-        </Button>
+        </Button> */}
+        <BookButton packages={ticketTypes} />
       </div>
     </div>
   );

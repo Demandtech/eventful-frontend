@@ -4,13 +4,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Searchbar from "../searchbar";
 import Sidebar from "../sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui";
+import { Avatar, AvatarFallback, AvatarImage, Button } from "@/components/ui";
 import { usePathname, useRouter } from "next/navigation";
 
 function Navbar() {
   const [user, setUser] = useState(true);
   const path = usePathname();
-
 
   return (
     <nav className=" max-w-[1440px] mx-auto sticky z-20 top-0 bg-[#04092c] text-white px-3 md:px-5 lg:px-20">
@@ -47,18 +46,29 @@ function Navbar() {
                 <Login />
               </>
             ) : (
-              <Link href="/profile/iujeujdu" className="flex gap-3 items-center">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>RA</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-medium text-sm -mb-2">Rasheed Adekunle</p>
-                  <span className="text-xs font-medium text-gray-500">
-                    @Demand
-                  </span>
-                </div>
-              </Link>
+             
+              <div className="flex items-center gap-5">
+                <Link
+                  href="/profile/iujeujdu"
+                  className="flex gap-3 items-center"
+                >
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>RA</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium text-sm -mb-2">
+                      Rasheed Adekunle
+                    </p>
+                    <span className="text-xs font-medium text-gray-500">
+                      @Demand
+                    </span>
+                  </div>
+                </Link>
+                <Button className="hidden lg:block" size="sm" variant="primary">
+                  Create event
+                </Button>
+              </div>
             )}
           </div>
         </div>

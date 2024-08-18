@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "./reatQueryProdiver";
 
 export const metadata: Metadata = {
   title: "Eventful",
@@ -26,7 +27,7 @@ export default function RootLayout({
           poppins.className
         )}
       >
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
