@@ -14,20 +14,19 @@ import {
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { TicketType } from "@/types";
+import { formatPrice } from "@/lib/utils";
 
 export const ticketTypes: TicketType[] = [
-  { _id: "1111", name: "Regular", price: "1000" },
-  { _id: "1234", name: "Vip", price: "2000" },
-  { _id: "1345", name: "VVip", price: "4000" },
-  { _id: "1456", name: "Table", price: "10000" },
+  { name: "Regular", price: "1000.00" },
+  { name: "Vip", price:"2000.00" } ,
+  { name: "VVip", price: "4000.00" },
+  { name: "Table", price: "10000.00" },
 ];
 
 function Page() {
   const { eventId } = useParams();
   const router = useRouter();
   console.log({ eventId });
-
-
 
   return (
     <PagesLayout>
@@ -86,11 +85,12 @@ function Page() {
             <li className="flex space-x-1 items-center">
               <Tag className="text-btn-primary" />
               <span className="font-medium text-sm text-[#333333]">
-                {" "}
-                ₦2000{" "}
-              </span>{" "}
-              -{" "}
-              <span className="font-medium text-sm text-[#333333]"> ₦3000</span>
+                ₦{formatPrice(ticketTypes[0].price)}
+              </span>
+              -
+              <span className="font-medium text-sm text-[#333333]">
+                ₦{formatPrice(ticketTypes[ticketTypes.length - 1].price)}
+              </span>
             </li>
           </ul>
         </div>

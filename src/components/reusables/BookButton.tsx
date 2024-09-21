@@ -10,9 +10,10 @@ import {
 } from "../ui";
 import { useState } from "react";
 import { TicketType } from "@/types";
+import { formatPrice } from "@/lib/utils";
 
 function BookButton({ packages }: { packages: TicketType[] }) {
-  const [bookingType, setBookingType] = useState(packages[0].price);
+  const [bookingType, setBookingType] = useState("");
 
   return (
     <DropdownMenu>
@@ -24,12 +25,15 @@ function BookButton({ packages }: { packages: TicketType[] }) {
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
           onValueChange={setBookingType}
-          value={bookingType}
+          value={String(bookingType)}
         >
           {packages.map((ticket, index) => {
             return (
-              <DropdownMenuRadioItem key={ticket._id} value={ticket.price}>
-                {ticket.name} (₦{ticket.price})
+              <DropdownMenuRadioItem
+                key={index}
+                value={String(ticket.price)}
+              >
+                {ticket.name} (₦{formatPrice(ticket.price)})
               </DropdownMenuRadioItem>
             );
           })}

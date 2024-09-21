@@ -15,8 +15,8 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <div className=" max-w-[1440px] mx-auto bg-[#04092c] text-white  ">
-      <div className="py-10 px-3 gap-10 md:px-5 lg:px-20 flex flex-col lg:flex-row lg:items-center">
+    <div className=" bg-[#04092c] text-white  ">
+      <div className="max-w-[1440px]  mx-auto py-10 px-3 gap-10 md:px-5 lg:px-20 flex flex-col lg:flex-row lg:items-center">
         <div className="flex-1">
           <Link href="/">
             <p className="capitalize font-bold text-4xl tracking-wide first-letter:text-btn-primary">

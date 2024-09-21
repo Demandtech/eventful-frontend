@@ -4,6 +4,7 @@ import {
   SheetContent,
   SheetTitle,
   SheetHeader,
+  SheetFooter,
 } from "../ui";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
@@ -14,7 +15,7 @@ function Sidebar() {
       <SheetTrigger className="lg:hidden">
         <MenuIcon />
       </SheetTrigger>
-      <SheetContent className="bg-btn-secondary" side="left">
+      <SheetContent className="bg-btn-secondary flex flex-col" side="left">
         <SheetHeader className="text-start mb-10">
           <SheetTitle className="inline capitalize font-bold text-lg tracking-wide first-letter:text-btn-primary text-white">
             <Link href="/">Eventful</Link>
@@ -34,6 +35,14 @@ function Sidebar() {
             <Link href="/categories/Theater">Theater</Link>
           </li>
         </ul>
+        <SheetFooter className="mt-auto text-center">
+          <Link
+            className="bg-btn-primary rounded-3xl text-white px-4"
+            href={"/create-event"}
+          >
+            Create event
+          </Link>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

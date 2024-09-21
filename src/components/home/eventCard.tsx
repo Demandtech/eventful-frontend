@@ -4,24 +4,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ticketTypes } from "@/app/details/[eventId]/page";
 import BookButton from "../reusables/BookButton";
+import { Event } from "@/types";
 
-function EventCard({
-  name,
-  time,
-  date,
-  price,
-  _id,
-  img,
-  venue,
-}: {
-  name: string;
-  time: string;
-  date: string;
-  price: string;
-  img: string;
-  _id: string;
-  venue: string;
-}) {
+function EventCard({ name, time, date, _id, img, venue }: Event) {
   const router = useRouter();
 
   return (
@@ -33,7 +18,7 @@ function EventCard({
         </div>
         <div className="min-w-28 w-full rounded-2xl overflow-hidden lg:w-auto h-28 relative">
           <Image
-            sizes="(max-with:300px)"
+            sizes="(max-width:112px)"
             className="object-cover object-center"
             alt=""
             src={img}
@@ -49,8 +34,10 @@ function EventCard({
           <p className="font-bold">{venue}</p>
         </div>
       </div>
-      <div className="lg:ml-auto gap-3 space-y-2  flex lg:block
-      ">
+      <div
+        className="lg:ml-auto gap-3 space-y-2  flex lg:block
+      "
+      >
         <Button
           onClick={() => router.push(`/details/${_id}`)}
           variant="outline"
@@ -59,9 +46,7 @@ function EventCard({
         >
           View Details
         </Button>
-        {/* <Button size="md" className="block w-full px-5 text-xs lg:text-sm">
-          Book Now (₦<span className="font-bold">{price}</span>)
-        </Button> */}
+
         <BookButton packages={ticketTypes} />
       </div>
     </div>
