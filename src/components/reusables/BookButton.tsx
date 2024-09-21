@@ -17,8 +17,8 @@ function BookButton({ packages }: { packages: TicketType[] }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="bg-btn-primary py-2 text-white rounded-3xl md:max-w-36 justify-between px-4 w-full flex gap-5">
-        Book <ChevronDown />
+      <DropdownMenuTrigger className="bg-btn-primary whitespace-nowrap py-2 text-white rounded-3xl md:max-w-36 justify-between px-4 w-full flex gap-3">
+        Book Now <ChevronDown />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
         <DropdownMenuLabel>Ticket type</DropdownMenuLabel>
@@ -29,10 +29,7 @@ function BookButton({ packages }: { packages: TicketType[] }) {
         >
           {packages.map((ticket, index) => {
             return (
-              <DropdownMenuRadioItem
-                key={index}
-                value={String(ticket.price)}
-              >
+              <DropdownMenuRadioItem key={index} value={String(ticket.price)}>
                 {ticket.name} (₦{formatPrice(ticket.price)})
               </DropdownMenuRadioItem>
             );

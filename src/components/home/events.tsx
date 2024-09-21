@@ -45,7 +45,7 @@ const events = [
 function Events({ header = "Top Picks Near You" }) {
   const [displayEvents, setEvents] = useState(events);
   return (
-    <div className="mt-10 w-full pb-20">
+    <div className="mt-10 w-full lg:pb-20">
       <h2 className="lg:text-3xl font-bold pb-5 mb-10 border-b">{header}</h2>
       <div className="relative">
         <ul className="">

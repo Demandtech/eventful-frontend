@@ -2,12 +2,20 @@ import Login from "@/components/auth/login";
 import Signup from "@/components/auth/signup";
 import Link from "next/link";
 import React, { useState } from "react";
-import Searchbar from "../searchbar";
-import Sidebar from "../sidebar";
+import Searchbar from "./searchbar";
+import Sidebar from "./sidebar";
 import { Avatar, AvatarFallback, AvatarImage, Button } from "@/components/ui";
 import { usePathname, useRouter } from "next/navigation";
+import { SearchIcon, LocateIcon } from "lucide-react";
+import { ButtonIcon } from "@radix-ui/react-icons";
 
-function Navbar() {
+function Navbar({
+  isSearchBarOpen,
+  setIsSearchBarOpen,
+}: {
+  isSearchBarOpen: boolean;
+  setIsSearchBarOpen: () => void;
+}) {
   const [user, setUser] = useState(true);
   const path = usePathname();
   const router = useRouter();
@@ -25,22 +33,30 @@ function Navbar() {
               </p>
             </Link>
           </div>
-          <div className="flex gap-10">
-            <ul className=" items-center gap-5 hidden lg:flex">
-              <li>
-                <Link href="/categories/Family">Trending</Link>
-              </li>
-              <li>
-                <Link href="/categories/Sports">Sport</Link>
-              </li>
-              <li>
-                <Link href="/categories/Concert">Concert</Link>
-              </li>
-              <li>
-                <Link href="/categories/Theater">Theater</Link>
-              </li>
-            </ul>
 
+          <div className="flex items-center sm:gap-10 ">
+            <div className="flex">
+              {!path.includes("detail") && !path.includes("create-event") && (
+                <Button onClick={setIsSearchBarOpen} variant="default">
+                  <SearchIcon className="text-gray-600" />
+                </Button>
+              )}
+
+              <ul className=" items-center gap-5 hidden lg:flex">
+                <li>
+                  <Link href="/categories/Family">Trending</Link>
+                </li>
+                <li>
+                  <Link href="/categories/Sports">Sport</Link>
+                </li>
+                <li>
+                  <Link href="/categories/Concert">Concert</Link>
+                </li>
+                <li>
+                  <Link href="/categories/Theater">Theater</Link>
+                </li>
+              </ul>
+            </div>
             <div className="gap-5 flex items-center">
               {!user ? (
                 <>
@@ -57,8 +73,8 @@ function Navbar() {
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>RA</AvatarFallback>
                     </Avatar>
-                    <div>
-                      <p className="font-medium text-sm -mb-2">
+                    <div className="hidden sm:block">
+                      <p className=" font-medium text-sm -mb-2">
                         Rasheed Adekunle
                       </p>
                       <span className="text-xs font-medium text-gray-500">
@@ -66,20 +82,24 @@ function Navbar() {
                       </span>
                     </div>
                   </Link>
-                  <Link
+                  {/* <Link
                     className="hidden lg:block bg-btn-primary rounded-3xl px-4"
                     href={"/create-event"}
                   >
                     Create event
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>
           </div>
         </div>
         {!path.includes("detail") && !path.includes("create-event") && (
-          <div className="pb-10">
-            <Searchbar />
+          <div
+            className={`${isSearchBarOpen ? "h-full" : "h-0"} overflow-hidden`}
+          >
+            <div className="pb-10 py-5">
+              <Searchbar />
+            </div>
           </div>
         )}
       </div>

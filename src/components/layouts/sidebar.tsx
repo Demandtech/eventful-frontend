@@ -37,7 +37,7 @@ function Sidebar() {
         </ul>
         <SheetFooter className="mt-auto text-center">
           <Link
-            className="bg-btn-primary rounded-3xl text-white px-4"
+            className="bg-btn-primary rounded text-white py-3"
             href={"/create-event"}
           >
             Create event

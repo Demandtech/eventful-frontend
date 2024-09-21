@@ -29,7 +29,7 @@ export default function DatePicker({
           variant={"outline"}
           size="md"
           className={cn(
-            "w-full lg:max-w-[200px] h-full text-btn-secondary justify-center text-left font-normal",
+            "w-full h-full text-btn-secondary justify-center text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >

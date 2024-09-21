@@ -16,7 +16,6 @@ import { useParams, useRouter } from "next/navigation";
 import { formatPrice } from "@/lib/utils";
 import { ticketTypes } from "@/lib/dummy-data";
 
-
 function Page() {
   const { eventId } = useParams();
   const router = useRouter();
@@ -39,15 +38,14 @@ function Page() {
           >
             <ArrowLeft /> Back
           </Button>
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <h1 className="font-bold w-full px-2 text-white text-center lg:leading text-4xl lg:text-6xl mb-5 lg:mb-10 backdrop-blur-sm">
+          <div className="absolute w-full max-w-[90%] md:max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <h1 className="font-bold w-full px-2 text-white text-center lg:leading text-4xl lg:text-6xl  backdrop-blur-sm">
               Sunday Pocono Raceway
             </h1>
           </div>
         </div>
-        <div className="mt-5 gap-3 lg:items-center flex-col md:flex-row flex">
-          <BookButton packages={ticketTypes} />
-          <ul className="md:items-center space-y-3 md:space-y-0 flex-wrap flex-col md:flex-row flex lg:ml-auto">
+        <div className="mt-5 gap-3">
+          <ul className="md:items-center space-y-3 md:space-y-0 flex-wrap flex-col md:flex-row flex">
             <li className="flex space-x-1 items-center">
               <Timer className="text-btn-primary" />
               <span className="font-medium text-sm text-[#333333]">
@@ -85,6 +83,11 @@ function Page() {
               <span className="font-medium text-sm text-[#333333]">
                 ₦{formatPrice(ticketTypes[ticketTypes.length - 1].price)}
               </span>
+            </li>
+
+            <Dot size={50} className="text-gray-500 hidden md:block" />
+            <li>
+              <BookButton packages={ticketTypes} />
             </li>
           </ul>
         </div>
