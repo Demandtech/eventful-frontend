@@ -6,7 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatPrice(price: number | string) {
-  console.log(price);
   if (price === null) return price;
 
   const priceStr = price.toString();

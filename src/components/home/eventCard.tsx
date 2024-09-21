@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ticketTypes } from "@/app/details/[eventId]/page";
+import { ticketTypes } from "@/lib/dummy-data";
 import BookButton from "../reusables/BookButton";
 import { Event } from "@/types";
 

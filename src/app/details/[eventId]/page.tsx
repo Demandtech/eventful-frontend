@@ -13,15 +13,9 @@ import {
   Tag,
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { TicketType } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import { ticketTypes } from "@/lib/dummy-data";
 
-export const ticketTypes: TicketType[] = [
-  { name: "Regular", price: "1000.00" },
-  { name: "Vip", price:"2000.00" } ,
-  { name: "VVip", price: "4000.00" },
-  { name: "Table", price: "10000.00" },
-];
 
 function Page() {
   const { eventId } = useParams();
