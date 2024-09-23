@@ -24,9 +24,14 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        btn: { 
+        
+        error: {
+          DEFAULT: "hsl(var(--error))",
+          foreground: "hsl(var(--error-foreground))",
+        },
+        btn: {
           primary: "hsl(var(--btn-primary))",
-          secondary: "hsl(var(--btn-secondary))"
+          secondary: "hsl(var(--btn-secondary))",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",

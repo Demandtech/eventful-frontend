@@ -5,22 +5,33 @@ import { Button, Input, Label } from "@/components/ui";
 import { ArrowLeft, Plus, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Editor } from "primereact/editor";
-import { useState } from "react";
-import { TicketType } from "@/types";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import moment from "moment";
 import { createEventSchema } from "@/lib/schemas";
+import { useToast } from "@/hooks/use-toast";
+
+function ErrorComp({ errorMessage }: { errorMessage: string | undefined }) {
+  return (
+    <div className="text-xs p-2 bg-error-foreground text-error">
+      <span>{errorMessage}</span>
+    </div>
+  );
+}
 
 function Page() {
   const router = useRouter();
   const [categories, setCategories] = useState([{ name: "", price: "" }]);
+  const { toast } = useToast();
 
   const {
     control,
     handleSubmit,
     register,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(createEventSchema),
@@ -32,17 +43,26 @@ function Page() {
       minute: "",
       ampm: "--",
       categories: [{ name: "", price: "" }],
+      description: "",
     },
   });
 
+  const currentCategory = getValues().categories;
+
   const addNewCategory = () => {
-    const existingNames = categories.map((cat) =>
-      cat.name.trim().toLowerCase()
-    );
-    // if (existingNames.some()) {
-    //   alert("This category name already exists.");
-    //   return;
-    // }
+    const isDataEmpty = currentCategory?.some((cat) => !cat.name || !cat.price);
+
+    if (isDataEmpty) {
+      console.log("Error Dey o");
+
+      toast({
+        variant: "destructive",
+        description: "Name and Price can not be empty",
+        duration: 3000,
+      });
+
+      return;
+    }
 
     setCategories((prevCategories) => [
       ...prevCategories,
@@ -52,6 +72,8 @@ function Page() {
 
   const removeCategory = (index: number) => {
     setCategories((prev) => prev.filter((_, i) => i !== index));
+    const updatedCategories = currentCategory?.filter((_, i) => i !== index);
+    setValue("categories", updatedCategories);
   };
 
   const handleCreateEvent = (data: any) => {
@@ -83,7 +105,7 @@ function Page() {
             className="h-full"
             action=""
           >
-            <div className="md:grid grid-cols-2 gap-10">
+            <div className="grid md:grid-cols-2 gap-5 md:gap-10">
               <div className="flex flex-1 flex-col gap-2">
                 <div>
                   <Label>Name</Label>
@@ -91,12 +113,9 @@ function Page() {
                     {...register("name")}
                     className="h-12"
                     placeholder="Enter event name"
+                    isError={errors.name}
+                    errorMessage={errors.name?.message}
                   />
-                  {errors.name && (
-                    <p className="text-xs mt-1 font-semibold text-red-900">
-                      {errors.name.message}
-                    </p>
-                  )}
                 </div>
                 <div>
                   <Label>Venue</Label>
@@ -104,177 +123,166 @@ function Page() {
                     {...register("venue")}
                     className="h-12"
                     placeholder="Enter event venue"
+                    isError={errors.venue}
+                    errorMessage={errors.venue?.message}
                   />
-                  {errors.venue && (
-                    <p className="text-xs font-semibold mt-1 text-red-900">
-                      {errors.venue.message}
-                    </p>
-                  )}
                 </div>
-                <div>
-                  <Label>Date</Label>
-                  <Input
-                    {...register("date")}
-                    className="h-12"
-                    type="date"
-                    placeholder="Enter event name"
-                    min={moment().format("YYYY-MM-DD")}
-                  />
-
-                  {errors.date && (
-                    <p className="text-xs font-semibold text-red-900">
-                      {errors.date.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div>
-                  <Label className="">Time</Label>
-                  <div className="flex pr-2  border gap-1 rounded-md items-center">
+                <div className="flex gap-2 sm:gap-5">
+                  <div className="flex-1">
+                    <Label>Date</Label>
                     <Input
-                      className="h-12 w-12 border-0"
-                      type="text"
-                      placeholder="HH"
-                      {...register("hour")}
+                      {...register("date")}
+                      className="h-12"
+                      type="date"
+                      placeholder="Enter event name"
+                      min={moment().format("YYYY-MM-DD")}
+                      isError={errors.date}
+                      errorMessage={errors.date?.message}
                     />
-                    <Input
-                      className="h-12 w-12 border-0"
-                      type="text"
-                      placeholder="MM"
-                      {...register("minute")}
-                    />
-                    <select
-                      {...register("ampm")}
-                      defaultValue="--"
-                      className="h-12 w-12 text-sm"
-                    >
-                      <option disabled value="--">
-                        --
-                      </option>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </select>
                   </div>
-                  {errors.time && (
-                    <p className="text-xs font-semibold text-red-900">
-                      {errors.time.message}
-                    </p>
-                  )}
-                  {errors.hour && (
-                    <p className="text-xs font-semibold text-red-900">
-                      {errors.hour.message}
-                    </p>
-                  )}
-                  {errors.minute && (
-                    <p className="text-xs font-semibold text-red-900">
-                      {errors.minute.message}
-                    </p>
-                  )}
-                  {errors.ampm && (
-                    <p className="text-xs font-semibold text-red-900">
-                      {errors.ampm.message}
-                    </p>
-                  )}
+                  <div className="flex-1">
+                    <Label className="">Time</Label>
+                    <div
+                      className={`flex pr-2 h-12 overflow-hidden border sm:gap-1 rounded-md items-center
+                      `}
+                    >
+                      <Input
+                        className="h-12 w-12 border-0 outline-none"
+                        type="text"
+                        placeholder="HH"
+                        {...register("hour", { maxLength: 2 })}
+                      />
+                      <Input
+                        className=" h-12 w-12 border-0"
+                        type="text"
+                        placeholder="MM"
+                        {...register("minute", { maxLength: 2 })}
+                      />
+                      <select
+                        {...register("ampm", { maxLength: 2 })}
+                        defaultValue="--"
+                        className="h-12 w-12 text-sm"
+                      >
+                        <option disabled value="--">
+                          --
+                        </option>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                      </select>
+                    </div>
+                    {errors.time ||
+                    errors.hour ||
+                    errors.minute ||
+                    errors.ampm ? (
+                      <ErrorComp errorMessage="Event full time is required" />
+                    ) : null}
+                  </div>
                 </div>
-                <div className="">
-                  <div className="flex flex-col gap-2">
-                    {categories.map((category, index) => (
-                      <div key={index} className="flex items-center">
-                        <div className="flex w-full gap-3">
-                          <div className="flex-1">
-                            <Label>Name</Label>
-                            <div className="w-full">
+                <div className="flex flex-col">
+                  {categories.map((category, index) => (
+                    <div key={index} className="flex items-center">
+                      <div className="flex w-full gap-2 sm:gap-5">
+                        <div className="flex-1">
+                          <Label>Name</Label>
+                          <div className="w-full">
+                            <Controller
+                              control={control}
+                              name={`categories.${index}.name`}
+                              render={() => (
+                                <Input
+                                  placeholder="Enter ticket category name"
+                                  className="h-12 w-full"
+                                  {...register(`categories.${index}.name`)}
+                                  isError={errors.categories?.[index]?.name}
+                                  errorMessage={
+                                    errors?.categories?.[index]?.name?.message
+                                  }
+                                />
+                              )}
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <Label>Price(₦)</Label>
+                          <div className="w-full">
+                            <div>
                               <Controller
                                 control={control}
-                                name={`categories.${index}.name`}
+                                name={`categories.${index}.price`}
                                 render={() => (
                                   <Input
-                                    placeholder="Enter ticket category name"
-                                    className="h-12 w-full"
-                                    // name="category"
-                                    {...register(`categories.${index}.name`)}
+                                    placeholder="Enter ticket category price"
+                                    className="h-12"
+                                    {...register(`categories.${index}.price`)}
+                                    isError={errors.categories?.[index]?.price}
+                                    errorMessage={
+                                      errors?.categories?.[index]?.price
+                                        ?.message
+                                    }
                                   />
                                 )}
                               />
-                              {errors.categories?.[index]?.name && (
+
+                              {/* {errors.categories?.[index]?.price && (
                                 <p className="text-xs font-semibold text-red-900">
-                                  {errors.categories[index].name.message}
+                                  {errors.categories[index].price.message}
                                 </p>
-                              )}
+                              )} */}
                             </div>
-                          </div>
-                          <div className="flex-1">
-                            <Label>Price(₦)</Label>
-                            <div className="w-full">
-                              <div>
-                                <Controller
-                                  control={control}
-                                  name={`categories.${index}.price`}
-                                  render={() => (
-                                    <Input
-                                      placeholder="Enter ticket category price"
-                                      className="h-12"
-                                      {...register(`categories.${index}.price`)}
-                                    />
-                                  )}
-                                />
-
-                                {errors.categories?.[index]?.price && (
-                                  <p className="text-xs font-semibold text-red-900">
-                                    {errors.categories[index].price.message}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-end pb-1.5 sm:pb-2">
-                            {categories.length > 1 && index !== 0 && (
-                              <Button
-                                onClick={() => removeCategory(index)}
-                                variant="default"
-                                type="button"
-                                className="px-1"
-                              >
-                                <Minus className="size-3 sm:size-4 md:size-5" />
-                              </Button>
-                            )}
-
-                            {index === categories.length - 1 && (
-                              <Button
-                                variant="default"
-                                type="button"
-                                onClick={addNewCategory}
-                                className="px-1"
-                              >
-                                <Plus className="size-3 sm:size-4 md:size-5" />
-                              </Button>
-                            )}
                           </div>
                         </div>
+                        <div className="flex items-end pb-1.5 sm:pb-2">
+                          {categories.length > 1 && index !== 0 && (
+                            <Button
+                              onClick={() => removeCategory(index)}
+                              variant="default"
+                              type="button"
+                              className="px-1"
+                            >
+                              <Minus className="size-3 sm:size-4 md:size-5" />
+                            </Button>
+                          )}
+
+                          {index === categories.length - 1 && (
+                            <Button
+                              variant="default"
+                              type="button"
+                              onClick={addNewCategory}
+                              className="px-1"
+                            >
+                              <Plus className="size-3 sm:size-4 md:size-5" />
+                            </Button>
+                          )}
+                        </div>
                       </div>
-                    ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 relative">
+                <div className="card ">
+                  <Label>Desciption</Label>
+                  <div className="relative">
+                    <div className="">
+                      <Editor
+                        onTextChange={(e) =>
+                          setValue("description", e.htmlValue || "")
+                        }
+                        {...register("description")}
+                        style={{
+                          height: "215px",
+                        }}
+                      />
+                      {errors.description && (
+                        <ErrorComp errorMessage={errors.description?.message} />
+                      )}
+                    </div>
                   </div>
                 </div>
-
-                {/* <div className="card">
-                  <Label>Desciption</Label>
-                  <div className="h-[150px] md:h-[300px]">
-                    <Editor
-                      // value={text}
-                      // onTextChange={(e) => setText(e.htmlValue)}
-                      className="h-full"
-                    />
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className="flex mt-10 justify-center">
-              <Button
-                // onClick={() => router.back()}
-                className="px-10 w-full sm:max-w-md"
-                variant="primary"
-              >
+              <Button className="px-10 w-[350px] sm:max-w-md" variant="primary">
                 Submit
               </Button>
             </div>

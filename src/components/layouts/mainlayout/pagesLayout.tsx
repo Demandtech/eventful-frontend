@@ -1,15 +1,24 @@
 import { ReactNode, useState } from "react";
 import Navbar from "../navbar";
-import Footer from "./Footer";
+import Footer from "../Footer";
+import { Toaster } from "@/components/ui/toaster";
 
-function PagesLayout({ children }: { children: ReactNode }) {
+
+function PagesLayout({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
   function handleSearBar() {
     setIsSearchBarOpen(!isSearchBarOpen);
   }
+  
   return (
-    <div className="relative min-h-dvh">
+    <div className={`relative min-h-dvh scroll-smooth ${className}`}>
       <Navbar
         setIsSearchBarOpen={handleSearBar}
         isSearchBarOpen={isSearchBarOpen}
@@ -19,6 +28,7 @@ function PagesLayout({ children }: { children: ReactNode }) {
         {children}
       </div>
       <Footer />
+      <Toaster />
     </div>
   );
 }

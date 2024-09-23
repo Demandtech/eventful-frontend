@@ -6,8 +6,8 @@ import Searchbar from "./searchbar";
 import Sidebar from "./sidebar";
 import { Avatar, AvatarFallback, AvatarImage, Button } from "@/components/ui";
 import { usePathname, useRouter } from "next/navigation";
-import { SearchIcon, LocateIcon } from "lucide-react";
-import { ButtonIcon } from "@radix-ui/react-icons";
+import { SearchIcon } from "lucide-react";
+import NavItems from "../reusables/NavItems";
 
 function Navbar({
   isSearchBarOpen,
@@ -28,7 +28,7 @@ function Navbar({
             <Sidebar />
 
             <Link href="/">
-              <p className="font-bold text-lg lg:text-4xl capitalize tracking-wide first-letter:text-btn-primary">
+              <p className="font-bold text-4xl capitalize tracking-wide first-letter:text-btn-primary">
                 Eventful
               </p>
             </Link>
@@ -42,20 +42,7 @@ function Navbar({
                 </Button>
               )}
 
-              <ul className=" items-center gap-5 hidden lg:flex">
-                <li>
-                  <Link href="/categories/Family">Trending</Link>
-                </li>
-                <li>
-                  <Link href="/categories/Sports">Sport</Link>
-                </li>
-                <li>
-                  <Link href="/categories/Concert">Concert</Link>
-                </li>
-                <li>
-                  <Link href="/categories/Theater">Theater</Link>
-                </li>
-              </ul>
+              <NavItems className="items-center gap-5 hidden lg:flex" />
             </div>
             <div className="gap-5 flex items-center">
               {!user ? (

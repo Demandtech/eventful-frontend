@@ -1,3 +1,4 @@
+import { categories } from "@/lib/dummy-data";
 import {
   Carousel,
   CarouselContent,
@@ -5,38 +6,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui";
-import CategoryCard from "./categoryCard";
+import CategoryCard from "./categoryCard";   
 
-const categories = [
-  {
-    name: "Concert",
-    img: "/assets/images/concert.png",
-  },
-  {
-    name: "Sport",
-    img: "/assets/images/sports.png",
-  },
-  {
-    name: "Theater",
-    img: "/assets/images/theater.png",
-  },
-  {
-    name: "Family",
-    img: "/assets/images/family.png",
-  },
-  {
-    name: "Family",
-    img: "/assets/images/family.png",
-  },
-];
 
 function Categories() {
   return (
-    <div className="mt-10 w-full">
+    <div className="w-full">
       <h2 className="lg:text-3xl font-bold pb-5 mb-5 border-b">
         Browse By Category
       </h2>
-
       <Carousel className="flex h-[280px] lg:h-[370px] justify-center w-full ">
         <CarouselContent className="w-full">
           {categories.map((category, index) => {

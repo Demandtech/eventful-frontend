@@ -4,6 +4,7 @@ import * as Yup from "yup";
 export const createEventSchema = Yup.object().shape({
   name: Yup.string().required("Event name is required"),
   venue: Yup.string().required("Event venue is required"),
+  description: Yup.string().required("Description is required"),
   date: Yup.date().min(new Date(), "Please choose future date"),
   hour: Yup.string()
     .required("Hour is required")

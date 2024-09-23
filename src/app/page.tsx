@@ -16,15 +16,24 @@ export default function Home() {
           <h1 className="font-bold lg:leading-[80px] text-4xl lg:text-6xl mb-5 lg:mb-10">
             Get your music fix with festival
           </h1>
-          <Link href={"/concert"}>
-            <span className="bg-white text-btn-secondary rounded-2xl px-5 py-2 font-semibold">
-              Book now
-            </span>
-          </Link>
+          <div className="flex gap-2 ">
+            <Link href="#books">
+              <span className="bg-white border-white border-2 text-btn-secondary rounded-3xl px-5 py-2 font-semibold">
+                Book now
+              </span>
+            </Link>
+            <Link href={"/create-event"}>
+              <span className="border-white border-2 text-btn-secondary rounded-3xl px-5 py-2 font-semibold">
+                Create Event
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
-      <Categories />
-      <Events />
+      <div id="books" className="lg:mt-10 scroll-smooth">
+        <Categories />
+        <Events />
+      </div>
     </PagesLayout>
   );
 }
