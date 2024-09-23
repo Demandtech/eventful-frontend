@@ -5,7 +5,7 @@ import { Button, Input, Label } from "@/components/ui";
 import { ArrowLeft, Plus, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Editor } from "primereact/editor";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -108,8 +108,8 @@ function Page() {
             <div className="grid md:grid-cols-2 gap-5 md:gap-10">
               <div className="flex flex-1 flex-col gap-2">
                 <div>
-                  <Label>Name</Label>
                   <Input
+                    label="Name"
                     {...register("name")}
                     className="h-12"
                     placeholder="Enter event name"
@@ -118,8 +118,8 @@ function Page() {
                   />
                 </div>
                 <div>
-                  <Label>Venue</Label>
                   <Input
+                    label="Venue"
                     {...register("venue")}
                     className="h-12"
                     placeholder="Enter event venue"
@@ -129,8 +129,8 @@ function Page() {
                 </div>
                 <div className="flex gap-2 sm:gap-5">
                   <div className="flex-1">
-                    <Label>Date</Label>
                     <Input
+                      label="Date"
                       {...register("date")}
                       className="h-12"
                       type="date"
@@ -141,13 +141,32 @@ function Page() {
                     />
                   </div>
                   <div className="flex-1">
-                    <Label className="">Time</Label>
+                    <Label
+                      className={` ${
+                        errors.time ||
+                        errors.hour ||
+                        errors.minute ||
+                        errors.ampm
+                          ? "text-error"
+                          : ""
+                      } 
+                      `}
+                    >
+                      Time
+                    </Label>
                     <div
-                      className={`flex pr-2 h-12 overflow-hidden border sm:gap-1 rounded-md items-center
+                      className={`flex h-12 overflow-hidden ${
+                        errors.time ||
+                        errors.hour ||
+                        errors.minute ||
+                        errors.ampm
+                          ? "border-error border-2 rounded-none"
+                          : "border"
+                      } sm:gap-1 rounded-md items-center
                       `}
                     >
                       <Input
-                        className="h-12 w-12 border-0 outline-none"
+                        className="h-10 w-12 border-0 focus:outline-none "
                         type="text"
                         placeholder="HH"
                         {...register("hour", { maxLength: 2 })}
@@ -183,13 +202,13 @@ function Page() {
                     <div key={index} className="flex items-center">
                       <div className="flex w-full gap-2 sm:gap-5">
                         <div className="flex-1">
-                          <Label>Name</Label>
                           <div className="w-full">
                             <Controller
                               control={control}
                               name={`categories.${index}.name`}
                               render={() => (
                                 <Input
+                                  label="Category Name"
                                   placeholder="Enter ticket category name"
                                   className="h-12 w-full"
                                   {...register(`categories.${index}.name`)}
@@ -203,7 +222,6 @@ function Page() {
                           </div>
                         </div>
                         <div className="flex-1">
-                          <Label>Price(₦)</Label>
                           <div className="w-full">
                             <div>
                               <Controller
@@ -211,6 +229,7 @@ function Page() {
                                 name={`categories.${index}.price`}
                                 render={() => (
                                   <Input
+                                    label="Category Price(₦)"
                                     placeholder="Enter ticket category price"
                                     className="h-12"
                                     {...register(`categories.${index}.price`)}
@@ -222,12 +241,6 @@ function Page() {
                                   />
                                 )}
                               />
-
-                              {/* {errors.categories?.[index]?.price && (
-                                <p className="text-xs font-semibold text-red-900">
-                                  {errors.categories[index].price.message}
-                                </p>
-                              )} */}
                             </div>
                           </div>
                         </div>
@@ -261,9 +274,18 @@ function Page() {
               </div>
               <div className="flex flex-col gap-2 relative">
                 <div className="card ">
-                  <Label>Desciption</Label>
+                  <Label
+                    className={` ${errors.description ? "text-error" : ""} 
+                      `}
+                  >
+                    Desciption
+                  </Label>
                   <div className="relative">
-                    <div className="">
+                    <div
+                      className={` ${
+                        errors.description && "border-2  border-error"
+                      }`}
+                    >
                       <Editor
                         onTextChange={(e) =>
                           setValue("description", e.htmlValue || "")
@@ -273,10 +295,10 @@ function Page() {
                           height: "215px",
                         }}
                       />
-                      {errors.description && (
-                        <ErrorComp errorMessage={errors.description?.message} />
-                      )}
                     </div>
+                    {errors.description && (
+                      <ErrorComp errorMessage={errors.description?.message} />
+                    )}
                   </div>
                 </div>
               </div>

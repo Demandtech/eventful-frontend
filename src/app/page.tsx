@@ -18,12 +18,12 @@ export default function Home() {
           </h1>
           <div className="flex gap-2 ">
             <Link href="#books">
-              <span className="bg-white border-white border-2 text-btn-secondary rounded-3xl px-5 py-2 font-semibold">
+              <span className="bg-btn-primary text-white border-2 border-btn-primary text-btn-secondary rounded-3xl px-5 py-2 font-semibold">
                 Book now
               </span>
             </Link>
             <Link href={"/create-event"}>
-              <span className="border-white border-2 text-btn-secondary rounded-3xl px-5 py-2 font-semibold">
+              <span className="border-btn-primary text-btn-primary border-2  rounded-3xl px-5 py-2 font-semibold">
                 Create Event
               </span>
             </Link>
